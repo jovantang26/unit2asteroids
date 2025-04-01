@@ -4,6 +4,9 @@
 //Unit 2 Project
 //Asteroids
 
+//Font 
+PFont gameFont; 
+
 //Color Pallette
 color black = #000000;
 color white = #ffffff; 
@@ -21,11 +24,14 @@ final int PAUSE = 2;
 final int GAMEOVER = 3; 
 
 //Keyboard Controls
-boolean wkey, akey, skey, dkey;
+boolean wKey, aKey, sKey, dKey, escKey; 
 
 void setup() {
   size(1500, 1000); 
-  background(blue); 
+  
+  textAlign(CENTER); 
+  gameFont = createFont("Game Of Squids.ttf", 100); 
+  textFont(gameFont); 
 }
 
 void draw() {
@@ -38,4 +44,5 @@ void draw() {
   } else {
     gameover(); 
   }
+  //println(mode); 
 }
