@@ -1,5 +1,8 @@
 void game() {
-  background(white); 
+  background(black); 
+  
+  ship.show(); 
+  ship.act(); 
 }
 
 void gameClicks() {

@@ -4,6 +4,9 @@
 //Unit 2 Project
 //Asteroids
 
+//Classes 
+Spaceship ship;
+
 //Font 
 PFont gameFont; 
 
@@ -32,6 +35,8 @@ void setup() {
   textAlign(CENTER); 
   gameFont = createFont("Game Of Squids.ttf", 100); 
   textFont(gameFont); 
+  
+  ship = new Spaceship();
 }
 
 void draw() {
@@ -44,5 +49,4 @@ void draw() {
   } else {
     gameover(); 
   }
-  //println(mode); 
 }
