@@ -16,6 +16,7 @@ void keyPressed() {
   if (key == 'S' || key == 's') sKey = true;
   if (key == 'D' || key == 'd') dKey = true;
   if (key == ESC) escKey = true;
+  if (key == ' ') spaceKey = true; 
 }
 
 void keyReleased() {
@@ -24,4 +25,5 @@ void keyReleased() {
   if (key == 'S' || key == 's') sKey = false;
   if (key == 'D' || key == 'd') dKey = false;
   if (key == ESC) escKey = false;
+  if (key == ' ') spaceKey = false; 
 }

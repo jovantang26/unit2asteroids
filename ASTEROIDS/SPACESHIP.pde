@@ -1,35 +1,71 @@
 class Spaceship {
   PVector loc; //location
   PVector vel; //velocity
+  PVector dir; //direction
 
   Spaceship() {
-    loc = new PVector (width/2, height/2);
-    vel = new PVector (5, 0); 
+    loc = new PVector(width/2, height/2);
+    vel = new PVector(0, 0);
+    dir = new PVector(1, 0);
   }
 
-  void ship(float x, float y) {
-    pushMatrix();
-    translate(loc.x, loc.y);
-
+  void ship() {
     noFill();
-    stroke(white); 
-    rect(23, 20, 10, 40);
-    rect(7, 20, 10, 40);
+    stroke(white);
+    fill(255, 0, 0);
+    circle(0, 0, 10);
+    noFill();
+    rect(0, 0, 30, 40);
     fill(black);
-    strokeWeight(1);
-    quad(15, 45, 0, 30, 15, -15, 30, 30);
+    strokeWeight(3);
+    quad(0, 25, -15, 0, -0, -50, 15, 0);
     stroke(blue);
-    triangle(20, 25, 10, 25, 15, 15); 
-
-
-    popMatrix();
+    triangle(0, 10, 5, 0, -5, 0);
   }
 
   void show() {
-    ship(loc.x, loc.y);
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rotate(dir.heading()+ PI/2); //PI/2 is to shift by 90 degreesaaaaaaaaaa
+    ship();
+    popMatrix();
   }
 
   void act() {
-    loc.add(vel); 
+    move();
+    shoot();
+    checkForCollisions();
+  }
+
+  void move() {
+    loc.add(vel);
+    if (loc.x > width) { //wraps around
+      loc.x = 0;
+    } else if (loc.x < 0) {
+      loc.x = width;
+    }
+    if (loc.y > height) {
+      loc.y = 0;
+    } else if (loc.y < 0) {
+      loc.y = height;
+    }
+
+    vel.setMag(min(vel.mag(), 12)); //set limit
+
+    if (wKey) {
+      vel.add(dir);
+    } else {
+      vel.setMag(vel.mag()*0.999); //slightly slows down
+    }
+    if (sKey) vel.setMag(vel.mag()*0.95); //slows down
+    if (aKey) dir.rotate(-radians(3));
+    if (dKey) dir.rotate(radians(3));
+  }
+
+  void shoot() {
+    if (spaceKey) bullets.add(new Bullet()); 
+  }
+
+  void checkForCollisions() {
   }
 }

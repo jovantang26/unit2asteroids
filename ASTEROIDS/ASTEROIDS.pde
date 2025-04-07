@@ -1,11 +1,10 @@
+import java.util.ArrayList; 
+
 //Jovan Tang
 //March 31st 2025
 
 //Unit 2 Project
 //Asteroids
-
-//Classes 
-Spaceship ship;
 
 //Font 
 PFont gameFont; 
@@ -27,14 +26,23 @@ final int PAUSE = 2;
 final int GAMEOVER = 3; 
 
 //Keyboard Controls
-boolean wKey, aKey, sKey, dKey, escKey; 
+boolean wKey, aKey, sKey, dKey, escKey, spaceKey; 
+
+//Game Objects 
+Spaceship ship;
+
+//List of Bullets
+ArrayList<Bullet> bullets; 
 
 void setup() {
   size(1500, 1000); 
   
   textAlign(CENTER); 
+  rectMode(CENTER); 
+  
   gameFont = createFont("Game Of Squids.ttf", 100); 
   textFont(gameFont); 
+  bullets = new ArrayList(); 
   
   ship = new Spaceship();
 }
