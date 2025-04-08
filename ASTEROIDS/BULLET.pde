@@ -1,21 +1,27 @@
-class Bullet {
-  PVector loc; //location
-  PVector vel; //velocity
+class Bullet extends GameObject {
   
+  int timer; 
   
   Bullet() {
-    loc = new PVector(ship.loc.x, ship.loc.y);
-    vel = ship.dir.copy(); 
-    vel.setMag(10); 
+    super(ship.loc.copy(), ship.dir.copy());
+    vel.setMag(20);
+    timer = 60; 
+    vel.add(ship.vel);
   }
-  
+
   void show() {
-    fill(yellow); 
-    noStroke(); 
-    ellipse(loc.x, loc.y, 2, 10); 
+    fill(white);
+    noStroke();
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rotate(vel.heading());
+    ellipse(0, 0, 3, 6);
+    popMatrix();
   }
 
   void act() {
-    loc.add(vel); 
+    loc.add(vel);
+    timer--; 
+    if (timer == 0) lives = 0; 
   }
 }

@@ -1,11 +1,8 @@
-class Spaceship {
-  PVector loc; //location
-  PVector vel; //velocity
+class Spaceship extends GameObject {
   PVector dir; //direction
 
   Spaceship() {
-    loc = new PVector(width/2, height/2);
-    vel = new PVector(0, 0);
+    super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
   }
 
@@ -63,7 +60,7 @@ class Spaceship {
   }
 
   void shoot() {
-    if (spaceKey) bullets.add(new Bullet()); 
+    if (spaceKey) objects.add(new Bullet());
   }
 
   void checkForCollisions() {

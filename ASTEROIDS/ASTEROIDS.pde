@@ -30,9 +30,7 @@ boolean wKey, aKey, sKey, dKey, escKey, spaceKey;
 
 //Game Objects 
 Spaceship ship;
-
-//List of Bullets
-ArrayList<Bullet> bullets; 
+ArrayList<GameObject> objects; 
 
 void setup() {
   size(1500, 1000); 
@@ -42,9 +40,9 @@ void setup() {
   
   gameFont = createFont("Game Of Squids.ttf", 100); 
   textFont(gameFont); 
-  bullets = new ArrayList(); 
-  
+  objects = new ArrayList(); 
   ship = new Spaceship();
+  objects.add(ship); 
 }
 
 void draw() {
