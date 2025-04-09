@@ -1,9 +1,11 @@
 class Spaceship extends GameObject {
   PVector dir; //direction
+  int cooldown; 
 
   Spaceship() {
     super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
+    cooldown = 0; 
   }
 
   void ship() {
@@ -32,21 +34,11 @@ class Spaceship extends GameObject {
     move();
     shoot();
     checkForCollisions();
+    wrapAround(); 
   }
 
   void move() {
     loc.add(vel);
-    if (loc.x > width) { //wraps around
-      loc.x = 0;
-    } else if (loc.x < 0) {
-      loc.x = width;
-    }
-    if (loc.y > height) {
-      loc.y = 0;
-    } else if (loc.y < 0) {
-      loc.y = height;
-    }
-
     vel.setMag(min(vel.mag(), 12)); //set limit
 
     if (wKey) {
@@ -60,7 +52,11 @@ class Spaceship extends GameObject {
   }
 
   void shoot() {
-    if (spaceKey) objects.add(new Bullet());
+    cooldown--; 
+    if (spaceKey && cooldown <= 0) {
+      objects.add(new Bullet());
+      cooldown = 30; //1 second is 60 cuz 60 fps
+    }
   }
 
   void checkForCollisions() {
