@@ -1,17 +1,45 @@
 class Asteroid extends GameObject {
+  int rotSpeed;
+
   Asteroid() {
     super(random(width), random(height), 1, 1, 3);
     vel.setMag(random(1, 3));
     vel.rotate(random(2*PI));
-    d = lives*50;
+    d = lives*70;
+
+    rotSpeed = 0;
+  }
+
+  Asteroid(PVector newLoc, int newLives) {
+    super(newLoc.x, newLoc.y, 3, 3, newLives);
+    vel.rotate(random(2*PI));
+    d = lives*70;
+
+    rotSpeed = 0;
   }
 
   void show() {
+    rotSpeed++;
+
     fill(black);
     stroke(white);
     strokeWeight(3);
-    circle(loc.x, loc.y, d);
-    square(loc.x, loc.y, sqrt(2)*d/2);
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rotate(radians(rotSpeed));
+
+    if (lives == 3) {
+      //3 lives
+      circle(0, 0, d);
+      square(0, 0, sqrt(2)*d/2);
+    } else if (lives == 2) {
+      //2 lives
+      circle(0, 0, d);
+    } else if (lives == 1) {
+      //1 lives
+      circle(0, 0, d);
+    }
+    popMatrix();
   }
 
   void act() {
@@ -26,7 +54,12 @@ class Asteroid extends GameObject {
       GameObject obj = objects.get(i);
       if (obj instanceof Bullet) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2) {
-          lives--;
+          int n = 0;
+          while (n < 3) {
+            objects.add(new Asteroid(loc.copy(), lives-1));
+            n++;
+          }
+          lives = 0;
           obj.lives = 0;
         }
       }

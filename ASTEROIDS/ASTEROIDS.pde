@@ -43,12 +43,11 @@ void setup() {
   objects = new ArrayList();
   ship = new Spaceship();
   objects.add(ship);
-
-  objects.add(new Asteroid());
-  objects.add(new Asteroid());
-  objects.add(new Asteroid());
-  objects.add(new Asteroid());
-  objects.add(new Asteroid());
+  int n = 0;
+  while (n < 3) {
+    objects.add(new Asteroid());
+    n++;
+  }
 }
 
 void draw() {

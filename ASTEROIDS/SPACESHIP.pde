@@ -55,7 +55,7 @@ class Spaceship extends GameObject {
     cooldown--; 
     if (spaceKey && cooldown <= 0) {
       objects.add(new Bullet());
-      cooldown = 30; //1 second is 60 cuz 60 fps
+      cooldown = 10; //1 second is 60 cuz 60 fps
     }
   }
 
