@@ -1,12 +1,12 @@
 void mousePressed() {
-    if (mode == INTRO) {
+  if (mode == INTRO) {
     introClicks();
   } else if (mode == GAME) {
-    gameClicks(); 
+    gameClicks();
   } else if (mode == PAUSE) {
-    pauseClicks(); 
+    pauseClicks();
   } else {
-    gameoverClicks(); 
+    gameoverClicks();
   }
 }
 
@@ -15,8 +15,9 @@ void keyPressed() {
   if (key == 'A' || key == 'a') aKey = true;
   if (key == 'S' || key == 's') sKey = true;
   if (key == 'D' || key == 'd') dKey = true;
+  if (key == 'Z' || key == 'z') zKey = true;
   if (key == ESC) escKey = true;
-  if (key == ' ') spaceKey = true; 
+  if (key == ' ') spaceKey = true;
 }
 
 void keyReleased() {
@@ -24,6 +25,7 @@ void keyReleased() {
   if (key == 'A' || key == 'a') aKey = false;
   if (key == 'S' || key == 's') sKey = false;
   if (key == 'D' || key == 'd') dKey = false;
+  if (key == 'Z' || key == 'z') zKey = false;
   if (key == ESC) escKey = false;
-  if (key == ' ') spaceKey = false; 
+  if (key == ' ') spaceKey = false;
 }

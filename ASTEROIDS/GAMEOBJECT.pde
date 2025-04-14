@@ -21,12 +21,17 @@ class GameObject {
     vel = v;
     lives = lv;
   }
-
-  void act() {
+  
+  GameOBject(PVector l, float vx, float vy, int lv) { //pulse
+  
   }
-
+  
   void show() {
   }
+  
+  void act(){
+  }
+
 
   void wrapAround() {
     if (loc.x > width + d) { //wraps around

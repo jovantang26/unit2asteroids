@@ -35,9 +35,12 @@ class Asteroid extends GameObject {
     } else if (lives == 2) {
       //2 lives
       circle(0, 0, d);
+      triangle(30, 60, -65, 0, 45, -50); 
+      
     } else if (lives == 1) {
       //1 lives
       circle(0, 0, d);
+      circle(0, 0, d/2);
     }
     popMatrix();
   }
@@ -55,7 +58,7 @@ class Asteroid extends GameObject {
       if (obj instanceof Bullet) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2) {
           int n = 0;
-          while (n < 3) {
+          while (n < 4) {
             objects.add(new Asteroid(loc.copy(), lives-1));
             n++;
           }

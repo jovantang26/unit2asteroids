@@ -26,7 +26,7 @@ final int PAUSE = 2;
 final int GAMEOVER = 3;
 
 //Keyboard Controls
-boolean wKey, aKey, sKey, dKey, escKey, spaceKey;
+boolean wKey, aKey, sKey, dKey, zKey, escKey, spaceKey;
 
 //Game Objects
 Spaceship ship;

@@ -1,6 +1,7 @@
 class Spaceship extends GameObject {
   PVector dir; //direction
   int cooldown; 
+  int pulseCooldown; 
 
   Spaceship() {
     super(width/2, height/2, 0, 0);
@@ -33,6 +34,7 @@ class Spaceship extends GameObject {
   void act() {
     move();
     shoot();
+    pulse(); 
     checkForCollisions();
     wrapAround(); 
   }
@@ -55,7 +57,14 @@ class Spaceship extends GameObject {
     cooldown--; 
     if (spaceKey && cooldown <= 0) {
       objects.add(new Bullet());
-      cooldown = 10; //1 second is 60 cuz 60 fps
+      cooldown = 15; //1 second is 60 cuz 60 fps
+    }
+  }
+  
+  void pulse() {
+    pulseCooldown--; 
+    if (zKey && pulseCooldown <= 0) {
+      objects.add(new Bullet()); 
     }
   }
 
