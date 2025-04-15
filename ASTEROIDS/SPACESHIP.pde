@@ -7,14 +7,13 @@ class Spaceship extends GameObject {
     super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
     cooldown = 0; 
+    pulseCooldown = 660; 
   }
 
   void ship() {
-    noFill();
     stroke(white);
-    fill(255, 0, 0);
+    fill(black);
     circle(0, 0, 10);
-    noFill();
     rect(0, 0, 30, 40);
     fill(black);
     strokeWeight(3);
@@ -37,6 +36,7 @@ class Spaceship extends GameObject {
     pulse(); 
     checkForCollisions();
     wrapAround(); 
+    pulseTimer(); 
   }
 
   void move() {
@@ -64,10 +64,18 @@ class Spaceship extends GameObject {
   void pulse() {
     pulseCooldown--; 
     if (zKey && pulseCooldown <= 0) {
-      objects.add(new Bullet()); 
+      objects.add(new Pulse(loc.copy())); 
+      pulseCooldown = 3600; 
     }
   }
-
+  
+ void pulseTimer() {
+   fill(white);
+   textSize(32); 
+    text("PULSE AVALIABLE IN  " + pulseCooldown/60 + "s", width/2, height/2); 
+  }
+  
   void checkForCollisions() {
+    
   }
 }

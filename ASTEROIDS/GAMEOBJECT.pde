@@ -9,8 +9,8 @@ class GameObject {
     vel = new PVector(vx, vy);
     lives = 3;
   }
-  
-   GameObject(float lx, float ly, float vx, float vy, int lv) { //asteroid
+
+  GameObject(float lx, float ly, float vx, float vy, int lv) { //asteroid
     loc = new PVector(lx, ly);
     vel = new PVector(vx, vy);
     lives = lv;
@@ -21,15 +21,17 @@ class GameObject {
     vel = v;
     lives = lv;
   }
-  
-  GameOBject(PVector l, float vx, float vy, int lv) { //pulse
-  
+
+  GameObject(PVector l, float vx, float vy, int lv) { //pulse
+    loc = l;
+    vel = new PVector(vx, vy);
+    lives = lv;
   }
-  
+
   void show() {
   }
-  
-  void act(){
+
+  void act() {
   }
 
 

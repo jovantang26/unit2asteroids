@@ -2,7 +2,7 @@ class Asteroid extends GameObject {
   int rotSpeed;
 
   Asteroid() {
-    super(random(width), random(height), 1, 1, 3);
+    super(-200, -200, 1, 1, 3);
     vel.setMag(random(1, 3));
     vel.rotate(random(2*PI));
     d = lives*70;

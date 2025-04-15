@@ -44,7 +44,7 @@ void setup() {
   ship = new Spaceship();
   objects.add(ship);
   int n = 0;
-  while (n < 3) {
+  while (n < 5) {
     objects.add(new Asteroid());
     n++;
   }
