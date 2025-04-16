@@ -1,13 +1,16 @@
 class Spaceship extends GameObject {
   PVector dir; //direction
-  int cooldown; 
-  int pulseCooldown; 
+  int cooldown;
+  int pulseCooldown;
+  int lives;
 
   Spaceship() {
     super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
-    cooldown = 0; 
-    pulseCooldown = 660; 
+
+    cooldown = 0;
+    pulseCooldown = 660;
+    lives = 60;
   }
 
   void ship() {
@@ -20,6 +23,14 @@ class Spaceship extends GameObject {
     quad(0, 25, -15, 0, -0, -50, 15, 0);
     stroke(blue);
     triangle(0, 10, 5, 0, -5, 0);
+
+    hitbox(0, 0, 50);
+  }
+
+  void hitbox(int x, int y, int d) {
+    noStroke();
+    fill(white, 0);
+    circle(x, y, d);
   }
 
   void show() {
@@ -28,15 +39,17 @@ class Spaceship extends GameObject {
     rotate(dir.heading()+ PI/2); //PI/2 is to shift by 90 degreesaaaaaaaaaa
     ship();
     popMatrix();
+
+    healthbar();
   }
 
   void act() {
     move();
     shoot();
-    pulse(); 
+    pulse();
     checkForCollisions();
-    wrapAround(); 
-    pulseTimer(); 
+    wrapAround();
+    pulseTimer();
   }
 
   void move() {
@@ -54,28 +67,44 @@ class Spaceship extends GameObject {
   }
 
   void shoot() {
-    cooldown--; 
+    cooldown--;
     if (spaceKey && cooldown <= 0) {
       objects.add(new Bullet());
       cooldown = 15; //1 second is 60 cuz 60 fps
     }
   }
-  
+
   void pulse() {
-    pulseCooldown--; 
+    pulseCooldown--;
     if (zKey && pulseCooldown <= 0) {
-      objects.add(new Pulse(loc.copy())); 
-      pulseCooldown = 3600; 
+      objects.add(new Pulse(loc.copy()));
+      pulseCooldown = 3600;
     }
   }
-  
- void pulseTimer() {
-   fill(white);
-   textSize(32); 
-    text("PULSE AVALIABLE IN  " + pulseCooldown/60 + "s", width/2, height/2); 
+
+  void pulseTimer() {
+    fill(white);
+    textSize(32);
+    if (pulseCooldown > 0) {
+      text("PULSE AVALIABLE IN  " + pulseCooldown/60 + "s", width/2, 50);
+    } else {
+      text("PULSE IS AVALIABLE    PRESS Z TO ACTIVATE", width/2, 50);
+    }
   }
-  
+
+  void healthbar() {
+    noFill();
+    stroke(white);
+    strokeWeight(5);
+    rect(loc.x, loc.y+65, 100, 10);
+
+    noStroke();
+    fill(red);
+    rect(loc.x, loc.y+65, 100, 10);
+  }
+
   void checkForCollisions() {
-    
+    if(dist(hitbox.x, hitbox.y, obj.loc.x, obj.loc.y < hitbox.d/2 + obj.d/2));
+    println(dist(hitbox.x, hitbox.y, obj.loc.x, obj.loc.y < hitbox.d/2 + obj.d/2)); 
   }
 }
