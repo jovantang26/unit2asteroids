@@ -37,8 +37,6 @@ void setup() {
 
   textAlign(CENTER);
   rectMode(CENTER);
-  
-  mode = 2; 
 
   gameFont = createFont("Game Of Squids.ttf", 100);
   textFont(gameFont);
@@ -62,5 +60,4 @@ void draw() {
   } else {
     gameover();
   }
-  println(mode); 
 }

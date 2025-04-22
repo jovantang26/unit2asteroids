@@ -2,8 +2,8 @@ class Pulse extends GameObject { //<>//
   int timer; 
   int randomColor; 
   
-  Pulse(PVector newDir) {
-    super(ship.loc.copy(), 1, 0, 1); 
+  Pulse(PVector newLoc) {
+    super(newLoc, 1, 0, 1); 
     vel.setMag(5); 
     
     timer = 30; 
