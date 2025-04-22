@@ -2,7 +2,6 @@ class Spaceship extends GameObject {
   PVector dir; //direction
   int cooldown;
   int pulseCooldown;
-  int lives;
 
   Spaceship() {
     super(width/2, height/2, 0, 0);
@@ -10,7 +9,8 @@ class Spaceship extends GameObject {
 
     cooldown = 0;
     pulseCooldown = 660;
-    lives = 60;
+    d = 50;
+    lives = 100; 
   }
 
   void ship() {
@@ -24,10 +24,10 @@ class Spaceship extends GameObject {
     stroke(blue);
     triangle(0, 10, 5, 0, -5, 0);
 
-    hitbox(0, 0, 50);
+    hitbox(0, 0);
   }
 
-  void hitbox(int x, int y, int d) {
+  void hitbox(int x, int y) {
     noStroke();
     fill(white, 0);
     circle(x, y, d);
@@ -100,11 +100,18 @@ class Spaceship extends GameObject {
 
     noStroke();
     fill(red);
-    rect(loc.x, loc.y+65, 100, 10);
+    rect(loc.x, loc.y+65, lives, 10);
   }
 
   void checkForCollisions() {
-    if(dist(hitbox.x, hitbox.y, obj.loc.x, obj.loc.y < hitbox.d/2 + obj.d/2));
-    println(dist(hitbox.x, hitbox.y, obj.loc.x, obj.loc.y < hitbox.d/2 + obj.d/2)); 
+    int i = 0;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      if (obj instanceof Asteroid) {
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2) {
+          lives--; 
+        }
+      }
+    }
   }
 }

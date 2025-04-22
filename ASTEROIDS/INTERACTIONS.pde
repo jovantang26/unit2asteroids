@@ -10,7 +10,7 @@ void mousePressed() {
   }
 }
 
-void keyPressed() {
+void keyPressed() { 
   if (key == 'W' || key == 'w') wKey = true;
   if (key == 'A' || key == 'a') aKey = true;
   if (key == 'S' || key == 's') sKey = true;
@@ -19,6 +19,7 @@ void keyPressed() {
   if (key == ESC) escKey = true;
   if (key == ' ') spaceKey = true;
 }
+
 
 void keyReleased() {
   if (key == 'W' || key == 'w') wKey = false;
