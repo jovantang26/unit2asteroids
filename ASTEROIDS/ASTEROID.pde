@@ -35,8 +35,7 @@ class Asteroid extends GameObject {
     } else if (lives == 2) {
       //2 lives
       circle(0, 0, d);
-      triangle(30, 60, -65, 0, 45, -50); 
-      
+      triangle(30, 60, -65, 0, 45, -50);
     } else if (lives == 1) {
       //1 lives
       circle(0, 0, d);
@@ -49,6 +48,7 @@ class Asteroid extends GameObject {
     loc.add(vel);
     wrapAround();
     checkForCollisions();
+    bounceOff();
   }
 
   void checkForCollisions() {
@@ -64,6 +64,19 @@ class Asteroid extends GameObject {
           }
           lives = 0;
           obj.lives = 0;
+        }
+      }
+      i++;
+    }
+  }
+
+  void bounceOff() {
+    int i = 0;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      if (obj instanceof Asteroid) {
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2) {
+           //bounce off
         }
       }
       i++;

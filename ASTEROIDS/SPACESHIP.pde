@@ -2,17 +2,22 @@ class Spaceship extends GameObject {
   PVector dir; //direction
   int cooldown;
   int pulseCooldown;
-  int collisionCooldown; 
+  int collisionCooldown;
+  boolean reverse;
+  boolean collision;
 
   Spaceship() {
     super(width/2, height/2, 0, 0);
-    dir = new PVector(1, 0);
+    dir = new PVector(0.5, 0);
 
     cooldown = 0;
     pulseCooldown = 660;
-    collisionCooldown = 0; 
+    collisionCooldown = 0;
     d = 50;
-    lives = 10; 
+    lives = 10;
+
+    reverse = false;
+    collision = false;
   }
 
   void ship() {
@@ -27,6 +32,11 @@ class Spaceship extends GameObject {
     triangle(0, 10, 5, 0, -5, 0);
 
     hitbox(0, 0);
+
+    if (collision == true) {
+      fill(blue, 100);
+      circle(0, -25, 125); //shield
+    }
   }
 
   void hitbox(int x, int y) {
@@ -58,12 +68,27 @@ class Spaceship extends GameObject {
     loc.add(vel);
     vel.setMag(min(vel.mag(), 12)); //set limit
 
-    if (wKey) {
-      vel.add(dir);
+    if (wKey && vel.mag() >= 0) {
+      reverse = false;
+      vel.add(dir); //go front
     } else {
       vel.setMag(vel.mag()*0.999); //slightly slows down
     }
-    if (sKey) vel.setMag(vel.mag()*0.95); //slows down
+    if (sKey && vel.mag() >= 0) {
+      vel.setMag(vel.mag()*0.95); //slows down
+      if (vel.mag() < 0.05) {
+        reverse = true;
+      }
+    }
+    if (sKey && reverse == true) {
+      vel.setMag(min(vel.mag(), 3));
+      vel.sub(dir); //reverse
+    }
+
+    //} if (sKey && vel.mag() <= 0.5) {
+    //  vel.setMag(min(vel.mag(), 4)); //reverse limit
+    //  vel.sub(dir); //reverse
+    //}
     if (aKey) dir.rotate(-radians(3));
     if (dKey) dir.rotate(radians(3));
   }
@@ -111,12 +136,13 @@ class Spaceship extends GameObject {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 && collisionCooldown <= 0) {
-          lives--; 
-          collisionCooldown = 300; 
+          collision = true;
+          lives--;
+          collisionCooldown = 300;
         }
       }
       i++;
     }
-    collisionCooldown--; 
+    collisionCooldown--;
   }
 }
