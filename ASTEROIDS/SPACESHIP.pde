@@ -3,6 +3,7 @@ class Spaceship extends GameObject {
   int cooldown;
   int pulseCooldown;
   int collisionCooldown;
+  int iFrames; 
   boolean reverse;
   boolean collision;
 
@@ -13,8 +14,9 @@ class Spaceship extends GameObject {
     cooldown = 0;
     pulseCooldown = 660;
     collisionCooldown = 0;
-    d = 50;
-    lives = 10;
+    d = 100;
+    lives = 50;
+    iFrames = 0; 
 
     reverse = false;
     collision = false;
@@ -31,17 +33,18 @@ class Spaceship extends GameObject {
     stroke(blue);
     triangle(0, 10, 5, 0, -5, 0);
 
-    hitbox(0, 0);
-
-    if (collision == true) {
-      fill(blue, 100);
-      circle(0, -25, 125); //shield
-    }
+    hitbox(0, -15);
   }
 
   void hitbox(int x, int y) {
     noStroke();
-    fill(white, 0);
+    if (collision == true) {
+        fill(blue, map(iFrames, 0, 600, 0, 100));
+      iFrames--; 
+      if (iFrames <= 0) collision = false; 
+    } if (collision == false) {
+      fill(white, 0);
+    }
     circle(x, y, d);
   }
 
@@ -84,11 +87,6 @@ class Spaceship extends GameObject {
       vel.setMag(min(vel.mag(), 3));
       vel.sub(dir); //reverse
     }
-
-    //} if (sKey && vel.mag() <= 0.5) {
-    //  vel.setMag(min(vel.mag(), 4)); //reverse limit
-    //  vel.sub(dir); //reverse
-    //}
     if (aKey) dir.rotate(-radians(3));
     if (dKey) dir.rotate(radians(3));
   }
@@ -97,7 +95,7 @@ class Spaceship extends GameObject {
     cooldown--;
     if (spaceKey && cooldown <= 0) {
       objects.add(new Bullet());
-      cooldown = 15; //1 second is 60 cuz 60 fps
+      cooldown = 10; //1 second is 60 cuz 60 fps
     }
   }
 
@@ -122,12 +120,17 @@ class Spaceship extends GameObject {
   void healthbar() {
     noFill();
     stroke(white);
-    strokeWeight(5);
+    strokeWeight(2.5);
     rect(loc.x, loc.y+65, 100, 10);
 
     noStroke();
     fill(red);
-    rect(loc.x, loc.y+65, lives*10, 10);
+    rectMode(CORNER); 
+    rect(loc.x-50, loc.y+60, lives*2, 10);
+    rectMode(CENTER); 
+    
+    if (collision) text(" " +lives+ " (i)", loc.x+100, loc.y+75); 
+    else text(" " +lives, loc.x+75, loc.y+75); 
   }
 
   void checkForCollisions() {
@@ -135,10 +138,13 @@ class Spaceship extends GameObject {
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
-        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 && collisionCooldown <= 0) {
+        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collisionCooldown <= 0 && collision == false) {
           collision = true;
-          lives--;
-          collisionCooldown = 300;
+          iFrames = 600; 
+          if (obj.lives == 3) lives = lives - 3;
+          if (obj.lives == 2) lives = lives - 2;
+          if (obj.lives == 1) lives--;
+          collisionCooldown = 600;
         }
       }
       i++;
