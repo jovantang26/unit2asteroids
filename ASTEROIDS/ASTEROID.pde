@@ -49,6 +49,7 @@ class Asteroid extends GameObject {
     wrapAround();
     checkForCollisions();
     bounceOff();
+    reload();
   }
 
   void checkForCollisions() {
@@ -64,6 +65,7 @@ class Asteroid extends GameObject {
           }
           lives = 0;
           obj.lives = 0;
+          countAsteroids++;
         }
       }
       i++;
@@ -76,10 +78,29 @@ class Asteroid extends GameObject {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2) {
-           //bounce off
+          //bounce off
         }
       }
       i++;
+    }
+  }
+
+  void reload() {
+    int i = 0;
+
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16);
+
+      //if (objects.size() == 0) {
+      //  while (i < numAsteroids) {
+      //    lives = 3;
+      //    objects.add(new Asteroid());
+      //    i++;
+      //  }
+      //}
+      i++;
+      println(countAsteroids);
     }
   }
 }

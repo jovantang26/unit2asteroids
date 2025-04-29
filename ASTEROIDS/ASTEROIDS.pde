@@ -1,5 +1,5 @@
 
-  import java.util.ArrayList;
+import java.util.ArrayList;
 
 //Jovan Tang
 //March 31st 2025
@@ -33,6 +33,9 @@ boolean wKey, aKey, sKey, dKey, zKey, escKey, spaceKey;
 Spaceship ship;
 ArrayList<GameObject> objects;
 
+int startAsteroids = 1; //start/new round
+int countAsteroids; //track asteroid count
+
 void setup() {
   size(1500, 1000);
 
@@ -45,7 +48,7 @@ void setup() {
   ship = new Spaceship();
   objects.add(ship);
   int n = 0;
-  while (n < 5) {
+  while (n < startAsteroids) {
     objects.add(new Asteroid());
     n++;
   }

@@ -2,8 +2,8 @@ class Spaceship extends GameObject {
   PVector dir; //direction
   int cooldown;
   int pulseCooldown;
-  int collisionCooldown;
-  int iFrames; 
+  int iFrames;
+  int bullet;
   boolean reverse;
   boolean collision;
 
@@ -13,10 +13,10 @@ class Spaceship extends GameObject {
 
     cooldown = 0;
     pulseCooldown = 660;
-    collisionCooldown = 0;
     d = 100;
     lives = 50;
-    iFrames = 0; 
+    bullet = 500;
+    iFrames = 0;
 
     reverse = false;
     collision = false;
@@ -39,10 +39,11 @@ class Spaceship extends GameObject {
   void hitbox(int x, int y) {
     noStroke();
     if (collision == true) {
-        fill(blue, map(iFrames, 0, 600, 0, 100));
-      iFrames--; 
-      if (iFrames <= 0) collision = false; 
-    } if (collision == false) {
+      fill(blue, map(iFrames, 0, 300, 0, 100));
+      iFrames--;
+      if (iFrames <= 0) collision = false;
+    }
+    if (collision == false) {
       fill(white, 0);
     }
     circle(x, y, d);
@@ -96,6 +97,7 @@ class Spaceship extends GameObject {
     if (spaceKey && cooldown <= 0) {
       objects.add(new Bullet());
       cooldown = 10; //1 second is 60 cuz 60 fps
+      bullet--;
     }
   }
 
@@ -125,12 +127,18 @@ class Spaceship extends GameObject {
 
     noStroke();
     fill(red);
-    rectMode(CORNER); 
+    rectMode(CORNER);
     rect(loc.x-50, loc.y+60, lives*2, 10);
-    rectMode(CENTER); 
-    
-    if (collision) text(" " +lives+ " (i)", loc.x+100, loc.y+75); 
-    else text(" " +lives, loc.x+75, loc.y+75); 
+    rectMode(CENTER);
+
+    if (collision) text(" " +lives+ " (i)", loc.x+100, loc.y+75); //lives display
+    else text(" " +lives, loc.x+75, loc.y+75);
+
+    if (bullet <= 0) {
+      bullet = 0;
+      fill(white);
+      text(" " + bullet, loc.x-100, loc.y+75);
+    }
   }
 
   void checkForCollisions() {
@@ -138,17 +146,15 @@ class Spaceship extends GameObject {
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
-        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collisionCooldown <= 0 && collision == false) {
+        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
           collision = true;
-          iFrames = 600; 
+          iFrames = 300;
           if (obj.lives == 3) lives = lives - 3;
           if (obj.lives == 2) lives = lives - 2;
           if (obj.lives == 1) lives--;
-          collisionCooldown = 600;
         }
       }
       i++;
     }
-    collisionCooldown--;
   }
 }
