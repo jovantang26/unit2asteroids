@@ -2,7 +2,7 @@ class Asteroid extends GameObject {
   int rotSpeed;
 
   Asteroid() {
-    super(-200, -200, 1, 1, 3);
+    super(-150, -150, 1, 1, 3);
     vel.setMag(random(1, 3));
     vel.rotate(random(2*PI));
     d = lives*70;
@@ -86,21 +86,25 @@ class Asteroid extends GameObject {
   }
 
   void reload() {
-    int i = 0;
-
-    while (i < objects.size()) {
-      GameObject obj = objects.get(i);
-      if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16);
-
-      //if (objects.size() == 0) {
-      //  while (i < numAsteroids) {
-      //    lives = 3;
-      //    objects.add(new Asteroid());
-      //    i++;
-      //  }
-      //}
-      i++;
-      println(countAsteroids);
+    fill(white);
+    text("Wave" +startAsteroids, width/2, height/8); //startAsteroids = wave #
+    if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16) {
+      startAsteroids++;
+      waveClear = true;
     }
+    if (waveClear == true) {
+      newWaveTimer--;
+    }
+    if (newWaveTimer <= 0) {
+      int i = 0;
+      while (i < startAsteroids) {
+        objects.add(new Asteroid());
+        i++;
+      }
+      waveClear = false; 
+      countAsteroids = 0;
+      newWaveTimer = 300;
+    }
+    println(newWaveTimer);
   }
 }
