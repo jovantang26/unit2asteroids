@@ -49,7 +49,6 @@ class Asteroid extends GameObject {
     wrapAround();
     checkForCollisions();
     bounceOff();
-    reload();
   }
 
   void checkForCollisions() {
@@ -85,26 +84,5 @@ class Asteroid extends GameObject {
     }
   }
 
-  void reload() {
-    fill(white);
-    text("Wave" +startAsteroids, width/2, height/8); //startAsteroids = wave #
-    if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16) {
-      startAsteroids++;
-      waveClear = true;
-    }
-    if (waveClear == true) {
-      newWaveTimer--;
-    }
-    if (newWaveTimer <= 0) {
-      int i = 0;
-      while (i < startAsteroids) {
-        objects.add(new Asteroid());
-        i++;
-      }
-      waveClear = false; 
-      countAsteroids = 0;
-      newWaveTimer = 300;
-    }
-    println(newWaveTimer);
-  }
+  
 }

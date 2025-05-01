@@ -15,7 +15,7 @@ class Spaceship extends GameObject {
     pulseCooldown = 660;
     d = 100;
     lives = 50;
-    bullet = 500;
+    bullet = 10;
     iFrames = 0;
 
     reverse = false;
@@ -57,6 +57,7 @@ class Spaceship extends GameObject {
     popMatrix();
 
     healthbar();
+    bulletCountDisplay();
   }
 
   void act() {
@@ -94,7 +95,7 @@ class Spaceship extends GameObject {
 
   void shoot() {
     cooldown--;
-    if (spaceKey && cooldown <= 0) {
+    if (spaceKey && cooldown <= 0 && bullet > 0) {
       objects.add(new Bullet());
       cooldown = 10; //1 second is 60 cuz 60 fps
       bullet--;
@@ -131,14 +132,16 @@ class Spaceship extends GameObject {
     rect(loc.x-50, loc.y+60, lives*2, 10);
     rectMode(CENTER);
 
+    textSize(32);
     if (collision) text(" " +lives+ " (i)", loc.x+100, loc.y+75); //lives display
     else text(" " +lives, loc.x+75, loc.y+75);
+    print(loc.x, loc.y);
+  }
 
-    if (bullet <= 0) {
-      bullet = 0;
-      fill(white);
-      text(" " + bullet, loc.x-100, loc.y+75);
-    }
+  void bulletCountDisplay() {
+    fill(white);
+    textSize(16);
+    text(" " + bullet, loc.x-85, loc.y+70);
   }
 
   void checkForCollisions() {
