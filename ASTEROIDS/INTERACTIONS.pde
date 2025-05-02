@@ -10,12 +10,13 @@ void mousePressed() {
   }
 }
 
-void keyPressed() { 
+void keyPressed() {
   if (key == 'W' || key == 'w') wKey = true;
   if (key == 'A' || key == 'a') aKey = true;
   if (key == 'S' || key == 's') sKey = true;
   if (key == 'D' || key == 'd') dKey = true;
   if (key == 'Z' || key == 'z') zKey = true;
+  if (key == 'R' || key == 'r') rKey = true;
   if (key == ESC) escKey = true;
   if (key == ' ') spaceKey = true;
 }
@@ -27,6 +28,7 @@ void keyReleased() {
   if (key == 'S' || key == 's') sKey = false;
   if (key == 'D' || key == 'd') dKey = false;
   if (key == 'Z' || key == 'z') zKey = false;
+  if (key == 'R' || key == 'r') rKey = false;
   if (key == ESC) escKey = false;
   if (key == ' ') spaceKey = false;
 }

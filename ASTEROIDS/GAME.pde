@@ -17,17 +17,20 @@ void game() {
   }
 
   reload();
+  gamePause();
 }
 
 void reload() {
   fill(white);
+  textAlign(CORNER);
   if (waveClear == false) {
-    textSize(32); 
-    text("Wave" +startAsteroids, width/2, height/8); //startAsteroids = wave #
+    textSize(32);
+    text("Wave" +startAsteroids, width*0.02, height*0.98); //startAsteroids = wave #
   } else {
-    textSize(48); 
-    text("Wave" +startAsteroids+ "  Clear!", width/2, height/8);
+    textSize(48);
+    text("Wave" +startAsteroids+ "  Clear!", width*0.02, height*0.98);
   }
+  textAlign(CENTER);
   if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16) {
     waveClear = true;
   }
@@ -48,5 +51,11 @@ void reload() {
 }
 
 void gameClicks() {
-  mode = PAUSE;
+}
+
+void gamePause() {
+  if (escKey) {
+    pauseScreenshot = get(0, 0, width, height);
+    mode = PAUSE;
+  }
 }

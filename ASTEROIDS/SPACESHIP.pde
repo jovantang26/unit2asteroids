@@ -4,6 +4,8 @@ class Spaceship extends GameObject {
   int pulseCooldown;
   int iFrames;
   int bullet;
+  int reloadTime;
+  boolean reload;
   boolean reverse;
   boolean collision;
 
@@ -15,9 +17,11 @@ class Spaceship extends GameObject {
     pulseCooldown = 660;
     d = 100;
     lives = 50;
-    bullet = 10;
+    bullet = 500;
     iFrames = 0;
+    reloadTime = 300;
 
+    reload = false;
     reverse = false;
     collision = false;
   }
@@ -67,6 +71,7 @@ class Spaceship extends GameObject {
     checkForCollisions();
     wrapAround();
     pulseTimer();
+    teleport(); 
   }
 
   void move() {
@@ -95,12 +100,20 @@ class Spaceship extends GameObject {
 
   void shoot() {
     cooldown--;
-    if (spaceKey && cooldown <= 0 && bullet > 0) {
+    if (spaceKey && cooldown <= 0 && bullet > 0 && reload == false) {
       objects.add(new Bullet());
       cooldown = 10; //1 second is 60 cuz 60 fps
       bullet--;
     }
+    if (rKey) reload = true;
+    if (reload == true) reloadTime--;
+    if (reloadTime <= 0) {
+      bullet = 500;
+      reloadTime = 300;
+      reload = false;
+    }
   }
+
 
   void pulse() {
     pulseCooldown--;
@@ -135,13 +148,16 @@ class Spaceship extends GameObject {
     textSize(32);
     if (collision) text(" " +lives+ " (i)", loc.x+100, loc.y+75); //lives display
     else text(" " +lives, loc.x+75, loc.y+75);
-    print(loc.x, loc.y);
   }
 
   void bulletCountDisplay() {
     fill(white);
     textSize(16);
-    text(" " + bullet, loc.x-85, loc.y+70);
+    if (reload == true) {
+      text("R", loc.x-85, loc.y+70);
+    } else {
+      text(" " + bullet, loc.x-85, loc.y+70);
+    }
   }
 
   void checkForCollisions() {
@@ -159,5 +175,9 @@ class Spaceship extends GameObject {
       }
       i++;
     }
+  }
+  
+  void teleport() {
+     //teleport (xKey)
   }
 }
