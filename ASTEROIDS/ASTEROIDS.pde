@@ -7,7 +7,7 @@ import java.util.ArrayList;
 //Unit 2 Project
 //Asteroids
 
-PImage 
+PImage pauseScreenshot; 
 
 //Font
 PFont gameFont;
@@ -29,7 +29,7 @@ final int PAUSE = 2;
 final int GAMEOVER = 3;
 
 //Keyboard Controls
-boolean wKey, aKey, sKey, dKey, zKey, rKey, escKey, spaceKey;
+boolean wKey, aKey, sKey, dKey, zKey, rKey, spaceKey;
 
 //Game Objects
 Spaceship ship;

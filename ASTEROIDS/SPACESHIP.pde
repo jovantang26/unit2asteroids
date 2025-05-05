@@ -16,7 +16,7 @@ class Spaceship extends GameObject {
     cooldown = 0;
     pulseCooldown = 660;
     d = 100;
-    lives = 50;
+    lives = 3;
     bullet = 500;
     iFrames = 0;
     reloadTime = 300;
@@ -42,15 +42,18 @@ class Spaceship extends GameObject {
 
   void hitbox(int x, int y) {
     noStroke();
-    if (collision == true) {
-      fill(blue, map(iFrames, 0, 300, 0, 100));
-      iFrames--;
-      if (iFrames <= 0) collision = false;
+
+    if (lives > 0) {
+      if (collision == true) {
+        fill(blue, map(iFrames, 0, 300, 0, 100));
+        iFrames--;
+        if (iFrames <= 0) collision = false;
+      }
+      if (collision == false) {
+        fill(white, 0);
+      }
+      circle(x, y, d);
     }
-    if (collision == false) {
-      fill(white, 0);
-    }
-    circle(x, y, d);
   }
 
   void show() {
@@ -71,7 +74,8 @@ class Spaceship extends GameObject {
     checkForCollisions();
     wrapAround();
     pulseTimer();
-    teleport(); 
+    teleport();
+    if (lives < 0) lives = 0; 
   }
 
   void move() {
@@ -176,8 +180,8 @@ class Spaceship extends GameObject {
       i++;
     }
   }
-  
+
   void teleport() {
-     //teleport (xKey)
+    //teleport (xKey)
   }
 }

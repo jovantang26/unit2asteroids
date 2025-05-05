@@ -54,8 +54,5 @@ void gameClicks() {
 }
 
 void gamePause() {
-  if (escKey) {
-    pauseScreenshot = get(0, 0, width, height);
-    mode = PAUSE;
-  }
+
 }
