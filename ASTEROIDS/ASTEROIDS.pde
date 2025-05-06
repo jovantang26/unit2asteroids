@@ -35,10 +35,13 @@ boolean wKey, aKey, sKey, dKey, zKey, rKey, spaceKey;
 Spaceship ship;
 ArrayList<GameObject> objects;
 
-//Wave Settings
+//Game Settings
 int startAsteroids = 1; //start/new round
 int countAsteroids; //track asteroid count
 int newWaveTimer = 300; //timer before starting new wave
+int gameoverTimer = 180; 
+int gameoverFadeIn;
+boolean gameover = false; 
 boolean waveClear = false; 
 
 void setup() {

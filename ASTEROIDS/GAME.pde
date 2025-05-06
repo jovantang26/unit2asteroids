@@ -17,7 +17,7 @@ void game() {
   }
 
   reload();
-  gamePause();
+  gameOver(); 
 }
 
 void reload() {
@@ -50,9 +50,13 @@ void reload() {
   }
 }
 
-void gameClicks() {
+void gameOver() {
+  if (gameover == true) {
+    gameoverTimer--; 
+    if (gameoverTimer < 0) mode = GAMEOVER; 
+  }
 }
 
-void gamePause() {
-
+void gameClicks() {
+  
 }

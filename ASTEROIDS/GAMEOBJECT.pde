@@ -22,9 +22,8 @@ class GameObject {
     lives = lv;
   }
 
-  GameObject(PVector l, float vx, float vy, int lv) { //pulse
+  GameObject(PVector l, int lv) { //pulse
     loc = l;
-    vel = new PVector(vx, vy);
     lives = lv;
   }
 

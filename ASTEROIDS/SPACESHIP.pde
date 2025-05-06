@@ -75,7 +75,10 @@ class Spaceship extends GameObject {
     wrapAround();
     pulseTimer();
     teleport();
-    if (lives < 0) lives = 0; 
+    if (lives <= 0) {
+      lives = 0; 
+      gameover = true;
+    }
   }
 
   void move() {
