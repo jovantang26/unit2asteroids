@@ -5,6 +5,7 @@ class Spaceship extends GameObject {
   int iFrames;
   int bullet;
   int reloadTime;
+  int teleCooldown;
   boolean reload;
   boolean reverse;
   boolean collision;
@@ -20,6 +21,7 @@ class Spaceship extends GameObject {
     bullet = 500;
     iFrames = 0;
     reloadTime = 300;
+    teleCooldown = 90;
 
     reload = false;
     reverse = false;
@@ -76,9 +78,10 @@ class Spaceship extends GameObject {
     pulseTimer();
     teleport();
     if (lives <= 0) {
-      lives = 0; 
+      lives = 0;
       gameover = true;
     }
+    reset();
   }
 
   void move() {
@@ -88,6 +91,7 @@ class Spaceship extends GameObject {
     if (wKey && vel.mag() >= 0) {
       reverse = false;
       vel.add(dir); //go front
+      objects.add(new Particle()); 
     } else {
       vel.setMag(vel.mag()*0.999); //slightly slows down
     }
@@ -185,6 +189,21 @@ class Spaceship extends GameObject {
   }
 
   void teleport() {
-    //teleport (xKey)
+    int i = 0;
+    teleCooldown--;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      if (obj instanceof Asteroid) {
+        if (xKey && teleCooldown <= 0) {
+          print("TELEPORT!");
+          //teleport
+          teleCooldown = 90;
+        }
+      }
+      i++;
+    }
+  }
+
+  void reset() {
   }
 }

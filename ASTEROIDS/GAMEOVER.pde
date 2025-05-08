@@ -20,4 +20,5 @@ if (gameoverFadeIn < 60) {
 
 void gameoverClicks() {
   mode = INTRO;
+  reset(); 
 }

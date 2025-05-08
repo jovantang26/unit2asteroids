@@ -17,6 +17,7 @@ void keyPressed() {
   if (key == 'D' || key == 'd') dKey = true;
   if (key == 'Z' || key == 'z') zKey = true;
   if (key == 'R' || key == 'r') rKey = true;
+  if (key == 'X' || key == 'x') xKey = true;
   if (key == ' ') spaceKey = true;
 }
 
@@ -28,12 +29,13 @@ void keyReleased() {
   if (key == 'D' || key == 'd') dKey = false;
   if (key == 'Z' || key == 'z') zKey = false;
   if (key == 'R' || key == 'r') rKey = false;
+  if (key == 'X' || key == 'x') xKey = false;
   if (key == 'P' || key == 'p') {
     if (mode == GAME) {
       pauseScreenshot = get(0, 0, width, height);
       mode = PAUSE;
     } else {
-      mode = GAME; 
+      mode = GAME;
     }
   }
   if (key == ' ') spaceKey = false;

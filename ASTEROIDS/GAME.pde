@@ -14,10 +14,13 @@ void game() {
     } else {
       i++;
     }
+    if (mode == GAMEOVER) {
+      objects.remove(i);
+    }
   }
 
   reload();
-  gameOver(); 
+  gameOver();  
 }
 
 void reload() {

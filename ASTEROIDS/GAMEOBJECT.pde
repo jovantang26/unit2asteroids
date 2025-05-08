@@ -16,7 +16,7 @@ class GameObject {
     lives = lv;
   }
 
-  GameObject(PVector l, PVector v, int lv) { //bullet
+  GameObject(PVector l, PVector v, int lv) { //bullet/particle
     loc = l;
     vel = v;
     lives = lv;

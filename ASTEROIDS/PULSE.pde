@@ -5,7 +5,6 @@ class Pulse extends GameObject { //<>//
   
   Pulse(PVector newLoc) {
     super(newLoc, 1); 
-    dir = 
     vel.setMag(5); 
     
     timer = 30; 

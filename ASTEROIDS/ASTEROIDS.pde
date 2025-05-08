@@ -7,7 +7,7 @@ import java.util.ArrayList;
 //Unit 2 Project
 //Asteroids
 
-PImage pauseScreenshot; 
+PImage pauseScreenshot;
 
 //Font
 PFont gameFont;
@@ -29,7 +29,7 @@ final int PAUSE = 2;
 final int GAMEOVER = 3;
 
 //Keyboard Controls
-boolean wKey, aKey, sKey, dKey, zKey, rKey, spaceKey;
+boolean wKey, aKey, sKey, dKey, zKey, rKey, xKey, spaceKey;
 
 //Game Objects
 Spaceship ship;
@@ -39,10 +39,10 @@ ArrayList<GameObject> objects;
 int startAsteroids = 1; //start/new round
 int countAsteroids; //track asteroid count
 int newWaveTimer = 300; //timer before starting new wave
-int gameoverTimer = 180; 
+int gameoverTimer = 180;
 int gameoverFadeIn;
-boolean gameover = false; 
-boolean waveClear = false; 
+boolean gameover = false;
+boolean waveClear = false;
 
 void setup() {
   size(1500, 1000);
@@ -52,14 +52,7 @@ void setup() {
 
   gameFont = createFont("Game Of Squids.ttf", 100);
   textFont(gameFont);
-  objects = new ArrayList();
-  ship = new Spaceship();
-  objects.add(ship);
-  int n = 0;
-  while (n < startAsteroids) {
-    objects.add(new Asteroid());
-    n++;
-  }
+  reset();
 }
 
 void draw() {
@@ -71,5 +64,24 @@ void draw() {
     pause();
   } else {
     gameover();
+  }
+}
+
+void reset() {
+  startAsteroids = 1;
+  newWaveTimer = 300;
+  gameoverTimer = 180;
+  countAsteroids = 0;
+  gameoverFadeIn = 0;
+  gameover = false;
+  waveClear = false;
+
+  objects = new ArrayList();
+  ship = new Spaceship();
+  objects.add(ship);
+  int n = 0;
+  while (n < startAsteroids) {
+    objects.add(new Asteroid());
+    n++;
   }
 }
