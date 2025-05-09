@@ -33,6 +33,7 @@ boolean wKey, aKey, sKey, dKey, zKey, rKey, xKey, spaceKey;
 
 //Game Objects
 Spaceship ship;
+Bullet bullet; 
 ArrayList<GameObject> objects;
 
 //Game Settings
@@ -80,7 +81,7 @@ void reset() {
   ship = new Spaceship();
   objects.add(ship);
   int n = 0;
-  while (n < startAsteroids) {
+  while (n < 10) { //startAsteroids
     objects.add(new Asteroid());
     n++;
   }

@@ -1,20 +1,26 @@
 class Particle extends GameObject {
   int particleShape;
   int colorSelector;
-  int trans; 
+  int trans;
+  int dir;
 
 
-  Particle() {
-    super(ship.loc.copy(), ship.dir.copy(), 255);
-    vel.rotate(random(PI-0.5, PI+0.5)); 
+  Particle(float rot, int lives) { //drive
+    super(ship.loc.copy(), ship.dir.copy(), lives);
+    vel.rotate(random(PI-rot, PI+rot));
     vel.setMag(3);
-  
+
     d = 10;
   }
 
+  Particle() { //impact
+    super(bullet.loc.copy(), 255);
+    vel = new PVector (random(0, 10), random(0, 10));
+  }
+
   void act() {
-     loc.add(vel);
-     lives = lives - 7;
+    loc.add(vel);
+    lives = lives - 7;
   }
 
   void show() {
@@ -35,11 +41,11 @@ class Particle extends GameObject {
     pushMatrix();
     translate(loc.x, loc.y);
     if (particleShape == 1) {
-      circle(0, 0, d); 
+      circle(0, 0, d);
     } else if (particleShape == 2) {
-      square(0, 0, d); 
+      square(0, 0, d);
     } else {
-      triangle(0, 0, 0, d, d, d/2); 
+      triangle(0, 0, 0, d, d, d/2);
     }
     popMatrix();
   }

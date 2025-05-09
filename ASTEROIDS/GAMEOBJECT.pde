@@ -22,7 +22,7 @@ class GameObject {
     lives = lv;
   }
 
-  GameObject(PVector l, int lv) { //pulse
+  GameObject(PVector l, int lv) { //pulse/particle
     loc = l;
     lives = lv;
   }

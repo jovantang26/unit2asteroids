@@ -1,5 +1,6 @@
 class Spaceship extends GameObject {
   PVector dir; //direction
+  PVector tempLoc; //temporary location
   int cooldown;
   int pulseCooldown;
   int iFrames;
@@ -76,7 +77,8 @@ class Spaceship extends GameObject {
     checkForCollisions();
     wrapAround();
     pulseTimer();
-    teleport();
+    teleCooldown--;
+    if (xKey && teleCooldown <= 0) teleport();
     if (lives <= 0) {
       lives = 0;
       gameover = true;
@@ -91,7 +93,8 @@ class Spaceship extends GameObject {
     if (wKey && vel.mag() >= 0) {
       reverse = false;
       vel.add(dir); //go front
-      objects.add(new Particle()); 
+      objects.add(new Particle(1.2, 255));
+      objects.add(new Particle(0.7, 255));
     } else {
       vel.setMag(vel.mag()*0.999); //slightly slows down
     }
@@ -104,6 +107,7 @@ class Spaceship extends GameObject {
     if (sKey && reverse == true) {
       vel.setMag(min(vel.mag(), 3));
       vel.sub(dir); //reverse
+      objects.add(new Particle(0.7, 325));
     }
     if (aKey) dir.rotate(-radians(3));
     if (dKey) dir.rotate(radians(3));
@@ -190,13 +194,15 @@ class Spaceship extends GameObject {
 
   void teleport() {
     int i = 0;
-    teleCooldown--;
+    tempLoc = new PVector(random(0, width), random(0, height));
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
-        if (xKey && teleCooldown <= 0) {
-          print("TELEPORT!");
-          //teleport
+        print("TELEPORT!");
+        if (dist(tempLoc.x, tempLoc.y, obj.loc.x, obj.loc.y) > 300) {
+          print(tempLoc.x, tempLoc.y); 
+          loc.x = tempLoc.x; 
+          loc.y = tempLoc.y;
           teleCooldown = 90;
         }
       }
