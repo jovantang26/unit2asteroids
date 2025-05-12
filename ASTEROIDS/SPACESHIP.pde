@@ -78,7 +78,7 @@ class Spaceship extends GameObject {
     wrapAround();
     pulseTimer();
     teleCooldown--;
-    if (xKey && teleCooldown <= 0) teleport();
+    if (tKey && teleCooldown <= 0) teleport();
     if (lives <= 0) {
       lives = 0;
       gameover = true;
@@ -194,19 +194,23 @@ class Spaceship extends GameObject {
 
   void teleport() {
     int i = 0;
+    boolean safe = true;
     tempLoc = new PVector(random(0, width), random(0, height));
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
       if (obj instanceof Asteroid) {
-        print("TELEPORT!");
-        if (dist(tempLoc.x, tempLoc.y, obj.loc.x, obj.loc.y) > 300) {
-          print(tempLoc.x, tempLoc.y); 
-          loc.x = tempLoc.x; 
-          loc.y = tempLoc.y;
-          teleCooldown = 90;
+        if (dist(tempLoc.x, tempLoc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 + 75) {
+          safe = false;
+          tempLoc = new PVector(random(0, width), random(0, height));
         }
       }
       i++;
+    }
+    if (safe == true) {
+      print("TELEPORT"); 
+      loc.x = tempLoc.x;
+      loc.y = tempLoc.y;
+      teleCooldown = 90;
     }
   }
 

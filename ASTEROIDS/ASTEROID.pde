@@ -60,9 +60,9 @@ class Asteroid extends GameObject {
           int n = 0;
           while (n < 4) {
             objects.add(new Asteroid(loc.copy(), lives-1));
-            //objects.add(new Particle()); 
             n++;
           }
+          objects.add(new Particle(loc.copy())); 
           lives = 0;
           obj.lives = 0;
           countAsteroids++;

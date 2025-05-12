@@ -2,6 +2,7 @@
 
 void game() {
   background(black);
+  //hideParticles();
 
   int i = 0;
   while (i < objects.size()) {
@@ -20,7 +21,7 @@ void game() {
   }
 
   reload();
-  gameOver();  
+  gameOver();
 }
 
 void reload() {
@@ -55,11 +56,20 @@ void reload() {
 
 void gameOver() {
   if (gameover == true) {
-    gameoverTimer--; 
-    if (gameoverTimer < 0) mode = GAMEOVER; 
+    gameoverTimer--;
+    if (gameoverTimer < 0) mode = GAMEOVER;
   }
 }
 
+//void hideParticles() {
+//  int i = 0;
+//  while (i < particle.size()) {
+//    Particle curPar = particle.get(i);
+//    curPar.act();
+//    curPar.show();
+//    i++; 
+//  }
+//}
+
 void gameClicks() {
-  
 }

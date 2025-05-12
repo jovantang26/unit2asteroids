@@ -29,12 +29,13 @@ final int PAUSE = 2;
 final int GAMEOVER = 3;
 
 //Keyboard Controls
-boolean wKey, aKey, sKey, dKey, zKey, rKey, xKey, spaceKey;
+boolean wKey, aKey, sKey, dKey, zKey, rKey, tKey, spaceKey;
 
 //Game Objects
 Spaceship ship;
 Bullet bullet; 
 ArrayList<GameObject> objects;
+ArrayList<Particle> particle; 
 
 //Game Settings
 int startAsteroids = 1; //start/new round
@@ -69,7 +70,7 @@ void draw() {
 }
 
 void reset() {
-  startAsteroids = 1;
+  startAsteroids = 5;
   newWaveTimer = 300;
   gameoverTimer = 180;
   countAsteroids = 0;
@@ -81,7 +82,7 @@ void reset() {
   ship = new Spaceship();
   objects.add(ship);
   int n = 0;
-  while (n < 10) { //startAsteroids
+  while (n < startAsteroids) { //startAsteroids
     objects.add(new Asteroid());
     n++;
   }

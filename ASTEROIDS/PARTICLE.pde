@@ -13,8 +13,8 @@ class Particle extends GameObject {
     d = 10;
   }
 
-  Particle() { //impact
-    super(bullet.loc.copy(), 255);
+  Particle(PVector newLoc) { //impact
+    super(newLoc, 255);
     vel = new PVector (random(0, 10), random(0, 10));
   }
 
