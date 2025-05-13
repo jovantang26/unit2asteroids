@@ -33,6 +33,7 @@ boolean wKey, aKey, sKey, dKey, zKey, rKey, tKey, spaceKey;
 
 //Game Objects
 Spaceship ship;
+Ufo ufo; 
 Bullet bullet; 
 ArrayList<GameObject> objects;
 ArrayList<Particle> particle; 
@@ -70,7 +71,7 @@ void draw() {
 }
 
 void reset() {
-  startAsteroids = 5;
+  startAsteroids = 1;
   newWaveTimer = 300;
   gameoverTimer = 180;
   countAsteroids = 0;
@@ -80,7 +81,10 @@ void reset() {
 
   objects = new ArrayList();
   ship = new Spaceship();
+  ufo = new Ufo(); 
+  
   objects.add(ship);
+  objects.add(ufo); 
   int n = 0;
   while (n < startAsteroids) { //startAsteroids
     objects.add(new Asteroid());

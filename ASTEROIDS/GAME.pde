@@ -9,6 +9,10 @@ void game() {
     GameObject currentObject = objects.get(i);
     currentObject.act();
     currentObject.show();
+    
+    //if(currentObject instanceof Ufo){
+    // println("jjjj"); 
+    //}
 
     if (currentObject.lives == 0) {
       objects.remove(i);

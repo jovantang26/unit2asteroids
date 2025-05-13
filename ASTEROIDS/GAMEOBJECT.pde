@@ -4,7 +4,7 @@ class GameObject {
   int lives;
   float d; //diameter
 
-  GameObject(float lx, float ly, float vx, float vy) { //spaceship
+  GameObject(float lx, float ly, float vx, float vy) { //spaceship//ufo
     loc = new PVector(lx, ly);
     vel = new PVector(vx, vy);
     lives = 3;

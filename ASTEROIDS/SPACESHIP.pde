@@ -207,10 +207,9 @@ class Spaceship extends GameObject {
       i++;
     }
     if (safe == true) {
-      print("TELEPORT"); 
       loc.x = tempLoc.x;
       loc.y = tempLoc.y;
-      teleCooldown = 90;
+      teleCooldown = 60;
     }
   }
 
