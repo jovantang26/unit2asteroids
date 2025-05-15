@@ -18,7 +18,7 @@ class Spaceship extends GameObject {
     cooldown = 0;
     pulseCooldown = 660;
     d = 100;
-    lives = 3;
+    lives = 50;
     bullet = 500;
     iFrames = 0;
     reloadTime = 300;

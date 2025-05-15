@@ -5,7 +5,7 @@ class Pulse extends GameObject { //<>//
   
   Pulse(PVector newLoc) {
     super(newLoc, 1); 
-    vel.setMag(5); 
+ 
     
     timer = 30; 
     randomColor = int(random(1, 3)); 
@@ -20,8 +20,6 @@ class Pulse extends GameObject { //<>//
     translate(loc.x, loc.y); 
     circle(0, 0, 1); 
     popMatrix(); 
-    
- 
   }
   
   void act() {

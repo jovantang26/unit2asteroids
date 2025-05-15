@@ -1,5 +1,3 @@
-
-
 void game() {
   background(black);
   //hideParticles();
@@ -9,12 +7,8 @@ void game() {
     GameObject currentObject = objects.get(i);
     currentObject.act();
     currentObject.show();
-    
-    //if(currentObject instanceof Ufo){
-    // println("jjjj"); 
-    //}
 
-    if (currentObject.lives == 0) {
+    if (currentObject.lives <= 0) {
       objects.remove(i);
     } else {
       i++;
@@ -24,6 +18,7 @@ void game() {
     }
   }
 
+  gameControls(); 
   reload();
   gameOver();
 }
@@ -63,6 +58,14 @@ void gameOver() {
     gameoverTimer--;
     if (gameoverTimer < 0) mode = GAMEOVER;
   }
+}
+
+void gameControls() {
+  fill(white); 
+  textSize(32);
+  text("P to pause", width*0.9, height*0.91);
+  text("R to reload", width*0.9, height*0.95);
+  text("T to teleport", width*0.9, height*0.99);
 }
 
 //void hideParticles() {

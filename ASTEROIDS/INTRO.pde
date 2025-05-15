@@ -24,14 +24,7 @@ void intro() {
 
 void introClicks() {
   mode = GAME;
-  objects = new ArrayList();
-  ship = new Spaceship();
-  objects.add(ship);
-  int n = 0;
-  while (n < startAsteroids) {
-    objects.add(new Asteroid());
-    n++;
-  }
+  reset();
 }
 
 void idleAnimation() {

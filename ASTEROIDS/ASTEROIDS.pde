@@ -55,7 +55,7 @@ void setup() {
 
   gameFont = createFont("Game Of Squids.ttf", 100);
   textFont(gameFont);
-  reset();
+ 
 }
 
 void draw() {

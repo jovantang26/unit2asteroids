@@ -1,17 +1,17 @@
 class Ufo extends GameObject { //issues on not spawning
   PVector dir;
-  PVector aim;
   int spawnTimer;
-  int shootCooldown; 
+  int shootCooldown;
 
   Ufo() {
-    super(random(0, width), random(-600, 100), 0, 0);
-    spawnTimer = 360;
-    shootCooldown = 120; 
-    vel = new PVector(0, 0);
+    super(random(0, width), random(height+100, height+400), 0, 0);
+    spawnTimer = 180;
+    shootCooldown = 120;
+    vel = new PVector(0, -1);
+    lives = 1;
   }
 
-  void ufo() {
+  void ship() {
     stroke(red);
     fill(black);
     circle(0, 0, 10);
@@ -24,27 +24,31 @@ class Ufo extends GameObject { //issues on not spawning
   }
 
   void act() {
-    println("spawmned");
+    dir = new PVector(ship.loc.x - loc.x, ship.loc.y - loc.y);
+   
     spawnTimer--;
-    print(spawnTimer);
+    println(spawnTimer); 
     if (spawnTimer <= 0) {
-      move();
-      shoot();
+       move();
+      ufoShoot();
+      //spawnTimer = 180; 
     }
-    spawnTimer = 1000;
   }
 
   void move() {
-    vel.setMag(10);
+    vel.setMag(4);
     loc.add(vel);
   }
 
-  void shoot() {
-    shootCooldown--; 
-    dir = new PVector(ship.loc.x - loc.x, ship.loc.y - loc.y);
+  void ufoShoot() {
+    shootCooldown--;
   }
 
   void show() {
-    ufo();
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rotate(dir.heading()+ PI/2);
+    ship();
+    popMatrix();
   }
 }
