@@ -2,13 +2,18 @@ class Ufo extends GameObject { //issues on not spawning
   PVector dir;
   int spawnTimer;
   int shootCooldown;
+  int iFrames;
+  boolean collision;
 
   Ufo() {
-    super(random(0, width), random(height+100, height+400), 0, 0);
+    super(random(0, width), height/2, 0, 0);
     spawnTimer = 180;
-    shootCooldown = 120;
+    shootCooldown = 10;
     vel = new PVector(0, -1);
-    lives = 1;
+    lives = 2;
+    iFrames = 120;
+    d = 100;
+    collision = false;
   }
 
   void ship() {
@@ -21,17 +26,38 @@ class Ufo extends GameObject { //issues on not spawning
     quad(0, 25, -15, 0, -0, -50, 15, 0);
     stroke(orange);
     triangle(0, 10, 5, 0, -5, 0);
+    hitbox(0, -15);
+  }
+
+  void hitbox(int x, int y) {
+    noStroke();
+
+    if (lives > 0) {
+      if (collision == true) {
+        fill(blue, map(iFrames, 0, 120, 0, 100));
+        iFrames--;
+        if (iFrames <= 0) collision = false;
+      }
+      if (collision == false) {
+        fill(white, 0);
+      }
+      circle(x, y, d);
+    }
   }
 
   void act() {
     dir = new PVector(ship.loc.x - loc.x, ship.loc.y - loc.y);
-   
+
     spawnTimer--;
-    println(spawnTimer); 
     if (spawnTimer <= 0) {
-       move();
+      move();
       ufoShoot();
-      //spawnTimer = 180; 
+      checkForCollision();
+    }
+    if (loc.y < -30) {
+      spawnTimer = 180;
+      loc = new PVector(random(0, width), random(height+100, height+600));
+      lives = 2;
     }
   }
 
@@ -42,6 +68,28 @@ class Ufo extends GameObject { //issues on not spawning
 
   void ufoShoot() {
     shootCooldown--;
+    if (shootCooldown <= 0) {
+      objects.add(new Bullet(ufo.loc.copy(), ufo.dir.copy(), ufo.vel, red));
+      shootCooldown = 10;
+    }
+  }
+
+  void checkForCollision() {
+    int i = 0;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      if (obj instanceof Bullet) {
+        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
+          if (obj.Estcolour == white) {
+            println("TRUE");
+            collision = true;
+            iFrames = 120;
+            lives--;
+          }
+        }
+      }
+      i++;
+    }
   }
 
   void show() {

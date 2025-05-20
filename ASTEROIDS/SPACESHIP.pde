@@ -116,7 +116,7 @@ class Spaceship extends GameObject {
   void shoot() {
     cooldown--;
     if (spaceKey && cooldown <= 0 && bullet > 0 && reload == false) {
-      objects.add(new Bullet());
+      objects.add(new Bullet(ship.loc.copy(), ship.dir.copy(), ship.vel, white));
       cooldown = 10; //1 second is 60 cuz 60 fps
       bullet--;
     }
@@ -186,6 +186,14 @@ class Spaceship extends GameObject {
           if (obj.lives == 3) lives = lives - 3;
           if (obj.lives == 2) lives = lives - 2;
           if (obj.lives == 1) lives--;
+        }
+      } else if (obj instanceof Bullet) {
+        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
+          if (obj.Estcolour == red) {
+            collision = true;
+            iFrames = 300;
+            lives--;
+          }
         }
       }
       i++;
