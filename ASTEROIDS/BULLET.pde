@@ -1,21 +1,20 @@
 class Bullet extends GameObject {
   
   int timer;
-  color colour; 
   
-  Bullet(PVector loc, PVector dir, PVector velAdd, int Estcolour) {
+  Bullet(PVector loc, PVector dir, PVector velAdd, color c) {
     super(loc, dir, 1);
     vel.setMag(20);
     timer = 60; 
     d = 4; 
     vel.add(velAdd);
-    colour = Estcolour;
+    Estcolour = c;
   }
   
   
 
   void show() {
-    fill(colour);
+    fill(Estcolour);
     noStroke();
     pushMatrix();
     translate(loc.x, loc.y);

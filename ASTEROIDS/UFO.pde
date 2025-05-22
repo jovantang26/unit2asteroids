@@ -1,14 +1,14 @@
 class Ufo extends GameObject { //issues on not spawning
   PVector dir;
-  int spawnTimer;
+  int spawnTimer; 
   int shootCooldown;
   int iFrames;
   boolean collision;
 
   Ufo() {
-    super(random(0, width), height/2, 0, 0);
-    spawnTimer = 180;
+    super(random(0, width), random(height+100, height+600), 0, 0);
     shootCooldown = 10;
+    spawnTimer = 180; 
     vel = new PVector(0, -1);
     lives = 2;
     iFrames = 120;
@@ -47,17 +47,12 @@ class Ufo extends GameObject { //issues on not spawning
 
   void act() {
     dir = new PVector(ship.loc.x - loc.x, ship.loc.y - loc.y);
-
-    spawnTimer--;
-    if (spawnTimer <= 0) {
       move();
       ufoShoot();
       checkForCollision();
-    }
+   
     if (loc.y < -30) {
-      spawnTimer = 180;
-      loc = new PVector(random(0, width), random(height+100, height+600));
-      lives = 2;
+     lives = 0; 
     }
   }
 
@@ -69,7 +64,8 @@ class Ufo extends GameObject { //issues on not spawning
   void ufoShoot() {
     shootCooldown--;
     if (shootCooldown <= 0) {
-      objects.add(new Bullet(ufo.loc.copy(), ufo.dir.copy(), ufo.vel, red));
+      //objects.add(new Bullet(loc.copy(), dir.copy(), ufo.vel, red));
+      objects.add(new Bullet(loc.copy(), dir.copy(), new PVector(0,0), red));
       shootCooldown = 10;
     }
   }
@@ -79,8 +75,8 @@ class Ufo extends GameObject { //issues on not spawning
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
       if (obj instanceof Bullet) {
-        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
-          if (obj.Estcolour == white) {
+        if (obj.Estcolour == white) {
+          if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
             println("TRUE");
             collision = true;
             iFrames = 120;

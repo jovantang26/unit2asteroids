@@ -3,7 +3,7 @@ class GameObject {
   PVector vel; //velocity
   int lives;
   float d; //diameter
-  int Estcolour; //determines type of bullet
+  color Estcolour; //determines type of bullet
 
   GameObject(float lx, float ly, float vx, float vy) { //spaceship//ufo
     loc = new PVector(lx, ly);
@@ -17,7 +17,7 @@ class GameObject {
     lives = lv;
   }
 
-  GameObject(PVector l, PVector v, int lv) { //bullet/particle
+  GameObject(PVector l, PVector v, int lv) { //bullet
     loc = l;
     vel = v;
     lives = lv;

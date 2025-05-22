@@ -5,10 +5,12 @@ class Pulse extends GameObject { //<>//
   
   Pulse(PVector newLoc) {
     super(newLoc, 1); 
- 
     
     timer = 30; 
     randomColor = int(random(1, 3)); 
+    dir = new PVector (0, 0); 
+    vel = new PVector (1, 0); 
+    vel.setMag(10); 
   }
   
   void show() {
@@ -23,6 +25,10 @@ class Pulse extends GameObject { //<>//
   }
   
   void act() {
+    for (int i = 0; i < 32; i++) {
+      dir.rotate(radians(11.25)); 
+      objects.add(new Bullet(ship.loc.copy, dir, vel, coloor)); //this
+    }
     loc.add(vel);  
   }
   

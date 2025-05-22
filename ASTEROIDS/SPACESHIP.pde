@@ -16,7 +16,7 @@ class Spaceship extends GameObject {
     dir = new PVector(0.5, 0);
 
     cooldown = 0;
-    pulseCooldown = 660;
+    pulseCooldown = 0;
     d = 100;
     lives = 50;
     bullet = 500;
@@ -188,8 +188,8 @@ class Spaceship extends GameObject {
           if (obj.lives == 1) lives--;
         }
       } else if (obj instanceof Bullet) {
-        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
-          if (obj.Estcolour == red) {
+        if (obj.Estcolour == red) {
+          if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
             collision = true;
             iFrames = 300;
             lives--;

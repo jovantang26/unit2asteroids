@@ -21,6 +21,8 @@ void game() {
   gameControls(); 
   reload();
   gameOver();
+   
+  if (frameCount % 280 == 0) objects.add(new Ufo());
 }
 
 void reload() {
