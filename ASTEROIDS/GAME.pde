@@ -22,36 +22,25 @@ void game() {
   reload();
   gameOver();
    
-  if (frameCount % 280 == 0) objects.add(new Ufo());
+  if (frameCount % 2000 == 0) objects.add(new Ufo());
 }
 
 void reload() {
   fill(white);
   textAlign(CORNER);
-  if (waveClear == false) {
     textSize(32);
     text("Wave" +startAsteroids, width*0.02, height*0.98); //startAsteroids = wave #
-  } else {
-    textSize(48);
-    text("Wave" +startAsteroids+ "  Clear!", width*0.02, height*0.98);
-  }
-  textAlign(CENTER);
-  if (countAsteroids == startAsteroids + startAsteroids*4 + startAsteroids*16) {
-    waveClear = true;
-  }
-  if (waveClear == true) {
-    newWaveTimer--;
-  }
-  if (newWaveTimer <= 0) {
+    textAlign(CENTER); 
+ 
+  if (frameCount % 1500 == 0)  {
+ 
     startAsteroids++;
     int i = 0;
     while (i < startAsteroids) {
       objects.add(new Asteroid());
       i++;
     }
-    waveClear = false;
     countAsteroids = 0;
-    newWaveTimer = 300;
   }
 }
 

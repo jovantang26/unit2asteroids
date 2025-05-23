@@ -55,7 +55,7 @@ class Asteroid extends GameObject {
     int i = 0;
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
-      if (obj instanceof Bullet) {
+      if (obj instanceof Bullet || obj instanceof Pulse) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < d/2 + obj.d/2) {
           int n = 0;
           while (n < 4) {

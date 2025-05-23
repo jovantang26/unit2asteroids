@@ -131,10 +131,17 @@ class Spaceship extends GameObject {
 
 
   void pulse() {
+    PVector pulseAiming; 
+    pulseAiming = new PVector(1, 0);  
     pulseCooldown--;
     if (zKey && pulseCooldown <= 0) {
-      objects.add(new Pulse(loc.copy()));
-      pulseCooldown = 3600;
+      for (int i = 0; i <32 ; i++) {
+        pulseAiming.rotate(radians(11.25*i));
+        objects.add(new Pulse(loc.copy(), pulseAiming));
+        println(11.25*i);
+
+      }
+      pulseCooldown = 1800; //3600
     }
   }
 

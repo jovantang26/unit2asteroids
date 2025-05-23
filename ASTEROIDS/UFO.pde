@@ -1,14 +1,14 @@
 class Ufo extends GameObject { //issues on not spawning
   PVector dir;
-  int spawnTimer; 
+  int spawnTimer;
   int shootCooldown;
   int iFrames;
   boolean collision;
 
   Ufo() {
-    super(random(0, width), random(height+100, height+600), 0, 0);
+    super(random(0, width), random(height+100, height+200), 0, 0);
     shootCooldown = 10;
-    spawnTimer = 180; 
+    spawnTimer = 180;
     vel = new PVector(0, -1);
     lives = 2;
     iFrames = 120;
@@ -47,25 +47,27 @@ class Ufo extends GameObject { //issues on not spawning
 
   void act() {
     dir = new PVector(ship.loc.x - loc.x, ship.loc.y - loc.y);
-      move();
-      ufoShoot();
-      checkForCollision();
-   
+    spawnTimer--;
+    if (spawnTimer < 0) {
+    move();
+    ufoShoot();
+    checkForCollision();
+    }
+
     if (loc.y < -30) {
-     lives = 0; 
+      lives = 0;
     }
   }
 
   void move() {
-    vel.setMag(4);
+    vel.setMag(2);
     loc.add(vel);
   }
 
   void ufoShoot() {
     shootCooldown--;
     if (shootCooldown <= 0) {
-      //objects.add(new Bullet(loc.copy(), dir.copy(), ufo.vel, red));
-      objects.add(new Bullet(loc.copy(), dir.copy(), new PVector(0,0), red));
+      objects.add(new Bullet(loc.copy(), dir.copy(), new PVector(0, 0), red));
       shootCooldown = 10;
     }
   }
@@ -77,11 +79,16 @@ class Ufo extends GameObject { //issues on not spawning
       if (obj instanceof Bullet) {
         if (obj.Estcolour == white) {
           if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
-            println("TRUE");
             collision = true;
             iFrames = 120;
             lives--;
           }
+        }
+      }
+      if (obj instanceof Pulse) {
+        if (dist(loc.x, loc.y-15, obj.loc.x, obj.loc.y) < d/2 + obj.d/2 && collision == false) {
+          collision = true;
+          lives = 0;
         }
       }
       i++;

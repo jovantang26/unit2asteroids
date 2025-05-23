@@ -41,11 +41,9 @@ ArrayList<Particle> particle;
 //Game Settings
 int startAsteroids = 1; //start/new round
 int countAsteroids; //track asteroid count
-int newWaveTimer = 300; //timer before starting new wave
 int gameoverTimer = 180;
 int gameoverFadeIn;
 boolean gameover = false;
-boolean waveClear = false;
 
 void setup() {
   size(1500, 1000);
@@ -72,12 +70,10 @@ void draw() {
 
 void reset() {
   startAsteroids = 1;
-  newWaveTimer = 300;
   gameoverTimer = 180;
   countAsteroids = 0;
   gameoverFadeIn = 0;
   gameover = false;
-  waveClear = false;
 
   objects = new ArrayList();
   ship = new Spaceship();
