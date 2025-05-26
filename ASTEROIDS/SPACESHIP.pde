@@ -11,6 +11,11 @@ class Spaceship extends GameObject {
   boolean reverse;
   boolean collision;
 
+  int f;
+  boolean pulseOn;
+  boolean activate;
+  PVector pulseAiming;
+
   Spaceship() {
     super(width/2, height/2, 0, 0);
     dir = new PVector(0.5, 0);
@@ -77,6 +82,7 @@ class Spaceship extends GameObject {
     checkForCollisions();
     wrapAround();
     pulseTimer();
+    pulseS();
     teleCooldown--;
     if (tKey && teleCooldown <= 0) teleport();
     if (lives <= 0) {
@@ -131,17 +137,29 @@ class Spaceship extends GameObject {
 
 
   void pulse() {
-    PVector pulseAiming; 
-    pulseAiming = new PVector(1, 0);  
+    pulseAiming = new PVector(1, 0);
     pulseCooldown--;
+    pulseOn = false;
     if (zKey && pulseCooldown <= 0) {
-      for (int i = 0; i <32 ; i++) {
-        pulseAiming.rotate(radians(11.25*i));
-        objects.add(new Pulse(loc.copy(), pulseAiming));
-        println(11.25*i);
+      f = 0;
+      activate = true;
+      pulseCooldown = 600; //3600
+    }
+  }
 
+  void pulseS() {
+    if (activate) {
+      if (frameCount % 2 == 0) f++;
+      if (f < 3) pulseOn = true;
+      if (f > 3) activate = false;
+      if (pulseOn) {
+        for (int i = 0; i <32; i++) {
+          pulseAiming.rotate(radians(11.25*i));
+          objects.add(new Pulse(loc.copy(), pulseAiming));
+        }
+        pulseOn = false;
       }
-      pulseCooldown = 1800; //3600
+      println(f);
     }
   }
 

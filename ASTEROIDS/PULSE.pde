@@ -5,7 +5,7 @@ class Pulse extends GameObject { //<>//
   Pulse(PVector newLoc, PVector dir) {
     super(newLoc, 1);
     
-    timer = 120;
+    timer = 240;
     randomColor = int(random(1, 3));
     vel = dir.copy();
     vel.setMag(10);

@@ -33,10 +33,10 @@ boolean wKey, aKey, sKey, dKey, zKey, rKey, tKey, spaceKey;
 
 //Game Objects
 Spaceship ship;
-Ufo ufo; 
-Bullet bullet; 
+Ufo ufo;
+Bullet bullet;
 ArrayList<GameObject> objects;
-ArrayList<Particle> particle; 
+ArrayList<Particle> particle;
 
 //Game Settings
 int startAsteroids = 1; //start/new round
@@ -44,6 +44,7 @@ int countAsteroids; //track asteroid count
 int gameoverTimer = 180;
 int gameoverFadeIn;
 boolean gameover = false;
+int frame = 1560;  //wave timer
 
 void setup() {
   size(1500, 1000);
@@ -53,7 +54,6 @@ void setup() {
 
   gameFont = createFont("Game Of Squids.ttf", 100);
   textFont(gameFont);
- 
 }
 
 void draw() {
@@ -74,13 +74,14 @@ void reset() {
   countAsteroids = 0;
   gameoverFadeIn = 0;
   gameover = false;
+  frame = 1560;
 
   objects = new ArrayList();
   ship = new Spaceship();
-  ufo = new Ufo(); 
-  
+  ufo = new Ufo();
+
   objects.add(ship);
-  objects.add(ufo); 
+  objects.add(ufo);
   int n = 0;
   while (n < startAsteroids) { //startAsteroids
     objects.add(new Asteroid());
